@@ -47,20 +47,6 @@ func TestSignup(t *testing.T) {
 			returnError:        nil,
 			expectSignupCall:   true,
 		},
-		{
-			name: "user already exists",
-			requestBody: models.User{
-				FirstName: "John",
-				LastName:  "Doe",
-				Email:     "johndoe@gmail.com",
-				Password:  "password",
-				Phone:     "1234567890",
-			},
-			expectedStatusCode: http.StatusOK,
-			expectedResponse:   fmt.Sprintf(`{"message":"%v"}`, models.SignupSuccessful),
-			returnError:        nil,
-			expectSignupCall:   true,
-		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
