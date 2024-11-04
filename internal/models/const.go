@@ -1,5 +1,6 @@
 package models
 
 const (
-	SignupSuccessful = "user created"
+	SignupSuccessful  = "user created"
+	UserAlreadyExists = "user already exists"
 )

@@ -1,6 +1,8 @@
 package services
 
 import (
+	"errors"
+
 	"github.com/Ansalps/UserEcommerceClean/internal/models"
 	"github.com/Ansalps/UserEcommerceClean/internal/repository"
 )
@@ -20,10 +22,10 @@ func NewUserService(userRepo *repository.UserRepository) *UserService {
 	return &UserService{userRepo: userRepo}
 }
 func (c *UserService) UserSignUp(user *models.User) error {
-	// existingUser, err := c.userRepo.GetUserByEmail(user.Email)
-	// if err != nil {
-	// 	return errors.New(models.UserAlreadyExists)
-	// }
+	existingUser, _ := c.userRepo.GetUserByEmail(user.Email)
+	if existingUser != nil {
+		return errors.New(models.UserAlreadyExists)
+	}
 	err := c.userRepo.UserSignUp(*user)
 	if err != nil {
 		return err
