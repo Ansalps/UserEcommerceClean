@@ -52,7 +52,7 @@ jobs:
           EC2_IP: ${{ secrets.EC2_IP }}
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_IP '
-            sudo systemctl restart usermanagement.service  # Adjust service name as necessary
+            sudo systemctl restart userecommerce.service  # Adjust service name as necessary
           '
 
       # Step 6: Cleanup SSH Key
