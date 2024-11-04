@@ -42,7 +42,7 @@ jobs:
             cd ~/UserEcommerceClean/cmd
             go mod tidy
             go test ./internal/controllers -v  # Adjust according to your test path
-            go build -o main.exe ./cmd/main.go
+            go build -o main.exe main.go
           '
 
       # Step 5: Restart Application Service
