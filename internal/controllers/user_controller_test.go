@@ -18,6 +18,7 @@ import (
 
 func TestSignup(t *testing.T) {
 	router := gin.New()
+	//gomock.Controller object, which is responsible for tracking and managing mock expectations and assertions during the test
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -130,6 +131,18 @@ func TestLogin(t *testing.T) {
 				user, ok := response["user"].(map[string]interface{})
 				assert.True(t, ok)
 				assert.NotNil(t, user)
+			},
+		},
+		{
+			name: "wrong password",
+			requestBody: models.UserLogin{
+				Email:    "test@example.com",
+				Password: "WrongPass@123",
+			},
+			expectedStatusCode: http.StatusUnauthorized,
+			mockError:          errors.New(models.InvalidInput),
+			validateResponse: func(t *testing.T, response map[string]interface{}) {
+				assert.Equal(t, models.InvalidInput, response["error"])
 			},
 		},
 	}

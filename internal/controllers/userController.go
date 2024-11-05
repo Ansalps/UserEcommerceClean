@@ -74,7 +74,7 @@ func (c *UserController) UserLogin(ctx *gin.Context) {
 	}
 	User, err := c.UserService.UserLogin(&loginRequest)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "email or password is incorrect"})
 		return
 	}
 	check := c.UserService.ComparePassword(loginRequest, *User)
