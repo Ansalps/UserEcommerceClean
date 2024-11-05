@@ -28,6 +28,7 @@ jobs:
           EC2_IP: ${{ secrets.EC2_IP }}      # Your EC2 public IP
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_IP '
+          set -e  # Exit immediately if a command exits with a non-zero status
             cd ~/UserEcommerceClean/cmd
             git pull origin main
           '
@@ -39,9 +40,12 @@ jobs:
           EC2_IP: ${{ secrets.EC2_IP }}
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_IP '
+          set -e  # Exit immediately if a command exits with a non-zero status
             cd ~/UserEcommerceClean/cmd
             go mod tidy
+            cd ..
             go test ./internal/controllers -v  # Adjust according to your test path
+            cd cmd
             go build -o main.exe main.go
           '
 
@@ -52,6 +56,7 @@ jobs:
           EC2_IP: ${{ secrets.EC2_IP }}
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_IP '
+          set -e  # Exit immediately if a command exits with a non-zero status
             sudo systemctl restart userecommerce.service  # Adjust service name as necessary
           '
 
