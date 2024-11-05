@@ -41,7 +41,9 @@ jobs:
           ssh -i key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_IP '
             cd ~/UserEcommerceClean/cmd
             go mod tidy
+            cd ..
             go test ./internal/controllers -v  # Adjust according to your test path
+            cd cmd
             go build -o main.exe main.go
           '
 
