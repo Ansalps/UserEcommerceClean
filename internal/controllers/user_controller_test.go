@@ -73,7 +73,7 @@ func TestSignup(t *testing.T) {
 				Phone:     "1234567890",
 			},
 			expectedStatusCode: http.StatusBadRequest,
-			expectedResponse:   fmt.Sprintf(`{"message":"%v"}`, "FirstName is not required"),
+			expectedResponse:   fmt.Sprintf(`{"message":"%v"}`, "FirstName is required"),
 			returnError:        nil,
 			expectSignupCall:   false,
 		},
