@@ -142,7 +142,7 @@ func TestLogin(t *testing.T) {
 					Email: test.requestBody.Email,
 				}
 				mockUserService.EXPECT().UserLogin(&test.requestBody).Return(user, nil)
-				//mockUserService.EXPECT().ComparePassword(test.requestBody, *user).Return(true)
+				mockUserService.EXPECT().ComparePassword(test.requestBody, *user).Return(true)
 			}
 			reqBody, _ := json.Marshal(test.requestBody)
 			req := httptest.NewRequest(http.MethodPost, "/user-login", bytes.NewReader(reqBody))
