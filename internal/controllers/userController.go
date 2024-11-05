@@ -34,14 +34,16 @@ func (c *UserController) UserSignUp(ctx *gin.Context) {
 	if err := utils.Validate(user); err != nil {
 		fmt.Println("", err)
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"status":     false,
-			"message":    err.Error(),
-			"error_code": http.StatusBadRequest,
+			"message": err.Error(),
 		})
 		return
 	}
 	err = c.UserService.UserSignUp(&user)
 	if err != nil {
+		if err.Error() == models.UserAlreadyExists {
+			ctx.JSON(http.StatusConflict, gin.H{"message": err.Error()})
+			return
+		}
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
